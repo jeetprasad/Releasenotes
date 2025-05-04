@@ -1,0 +1,17 @@
+name: $(Date:yyyyMMdd)$(Rev:.r) # defines the format of the build number
+trigger:
+  branches:
+    include:
+      - main # trigger on commits to branch 'main'
+variables:
+  - name: "isDevBranch"
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/dev')]
+pool:
+  vmImage: "windows-latest"
+stages:
+  - stage: dev
+    displayName: "Release Notes and git tag for Dev"
+    condition: eq(variables.isDevBranch, true) # ensure conditional execution of stage
+    jobs:
+      - template: jobs-generate-release-notes.yml
+      - template: jobs-create-git-tag.yml  
