@@ -2,7 +2,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r) # defines the format of the build number
 trigger:
   branches:
     include:
-      - main # trigger on commits to branch 'main'
+      - dev # trigger on commits to branch 'dev'
 variables:
   - name: "isDevBranch"
     value: $[eq(variables['Build.SourceBranch'], 'refs/heads/dev')]
